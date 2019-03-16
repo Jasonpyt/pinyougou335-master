@@ -9,8 +9,12 @@ import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.log.PayLog;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.order.OrderItem;
+import cn.itcast.core.pojo.order.OrderQuery;
 import cn.itcast.core.utils.uniquekey.IdWorker;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import entity.PageResult;
 import org.springframework.data.redis.core.RedisTemplate;
 
 
@@ -118,6 +122,44 @@ public class OrderServiceImpl implements OrderService {
         redisTemplate.boundHashOps("BUYER_CART").delete(username);
 
 
+
+    }
+
+    /**
+     * 订单查询
+     * @param page
+     * @param rows
+     * @param order
+     * @return
+     */
+    @Override
+    public PageResult search(Integer page, Integer rows, Order order) {
+        //设置分页
+        PageHelper.startPage(page, rows);
+
+        OrderQuery query = new OrderQuery();
+        OrderQuery.Criteria criteria = query.createCriteria();
+        //封装查询条件
+        //根据订单id
+        if (order.getOrderId()!=null&&!"".equals(order.getOrderId().toString().trim())){
+            criteria.andOrderIdEqualTo(order.getOrderId());
+        }
+        if (order.getBuyerNick()!=null&&!"".equals(order.getBuyerNick().trim())){
+            criteria.andBuyerNickEqualTo(order.getBuyerNick());
+        }
+        if (order.getStatus()!=null&&!"".equals(order.getStatus().trim())){
+          //  if (order.getStatus().equals(""))
+            criteria.andStatusEqualTo(order.getStatus());
+        }
+
+       // query.setOrderByClause("orderId desc");
+        Page<Order> p = (Page<Order>) orderDao.selectByExample(query);
+        return new PageResult(p.getTotal(),p.getResult());
+    }
+
+    @Override
+    public Order findOneById(Long orderId) {
+        return orderDao.selectByPrimaryKey(orderId);
 
     }
 }
