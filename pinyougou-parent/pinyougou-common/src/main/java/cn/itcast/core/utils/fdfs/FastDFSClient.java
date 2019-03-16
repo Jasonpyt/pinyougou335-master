@@ -14,6 +14,8 @@ public class FastDFSClient {
 	private TrackerServer trackerServer = null;
 	private StorageServer storageServer = null;
 	private StorageClient1 storageClient = null;
+
+	private Integer id;//修改
 	
 	public FastDFSClient(String conf) throws Exception {
 		if (conf.contains("classpath:")) {
