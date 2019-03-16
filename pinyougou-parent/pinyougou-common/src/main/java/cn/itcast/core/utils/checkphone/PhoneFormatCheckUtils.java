@@ -9,7 +9,8 @@ public class PhoneFormatCheckUtils {
     /** 
      * 大陆号码或香港号码均可 
      */  
-    public static boolean isPhoneLegal(String str)throws PatternSyntaxException {  
+    public static boolean isPhoneLegal(String str)throws PatternSyntaxException {
+        System.out.println("666");
         return isChinaPhoneLegal(str) || isHKPhoneLegal(str);  
     }  
   
