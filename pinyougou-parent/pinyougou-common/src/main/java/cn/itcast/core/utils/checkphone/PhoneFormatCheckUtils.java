@@ -11,6 +11,7 @@ public class PhoneFormatCheckUtils {
      */  
     public static boolean isPhoneLegal(String str)throws PatternSyntaxException {
         System.out.println("666");
+        System.out.println("777");
         System.out.println("888");
         return isChinaPhoneLegal(str) || isHKPhoneLegal(str);  
     }  
