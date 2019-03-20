@@ -1,5 +1,6 @@
 package cn.itcast.core.service.cart;
 
+
 import cn.itcast.core.dao.item.ItemDao;
 import cn.itcast.core.dao.order.OrderItemDao;
 import cn.itcast.core.dao.seller.SellerDao;
@@ -11,6 +12,7 @@ import cn.itcast.core.pojo.seller.Seller;
 import com.alibaba.dubbo.config.annotation.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -29,8 +31,6 @@ public class CartServiceImpl implements CartService {
     private SellerDao sellerDao;
     @Autowired
     private OrderItemDao orderItemDao;
-
-
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
@@ -98,6 +98,28 @@ public class CartServiceImpl implements CartService {
         return cartList;
     }
 
+    /**
+     * 单个订单项的收藏
+     * @param itemId
+     * @param username
+     */
+    @Transactional
+    @Override
+    public void addCollect(Long itemId, String username)  {
+            orderItemDao.updateIsCollectByItemId(username, itemId);
+    }
+
+    //查看商品是否被添加
+    @Override
+    public boolean checkCollect(Long itemId, String username) {
+        long i=orderItemDao.checkCollect(itemId,username);
+
+        if(i!=0){
+            return false;
+        }else {
+            return true;
+        }
+    }
     /**
      * cookie 和redis的购物车合并
      *

@@ -292,4 +292,13 @@
       seller_id = #{sellerId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <!--单个订单项的收藏-->
+  <insert id="updateIsCollectByItemId" >
+    insert into tb_collect (username,itemId) values (#{param1,jdbcType=VARCHAR},#{param2,jdbcType=BIGINT});
+  </insert>
+
+  <select id="checkCollect" resultType="long">
+    select count(itemId) from tb_collect where itemId=#{param1} and username=#{param2}
+  </select>
 </mapper>

@@ -20,7 +20,6 @@ public class GoodsController {
     @RequestMapping("/add.do")
     public Result add(@RequestBody GoodsVo goodsVo){
         try {
-
            // System.out.println(goodsVo.toString());
             //保存商品信息  sellerId 商家的id(名称) 商家信息在登录信息里面
             //得到登录信息id

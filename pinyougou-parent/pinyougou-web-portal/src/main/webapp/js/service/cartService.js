@@ -35,6 +35,13 @@ app.service('cartService',function($http){
 	this.submitOrder=function(order){
 		return $http.post('order/add.do',order);		
 	}
-	
-	
+
+	//单个商品的收藏
+	this.addCollect=function(itemId){
+        return $http.post("cart/addCollect.do?itemId="+itemId);
+	}
+
+	this.addCollects=function(selectIds){
+		return $http.post("cart/addCollects.do?selectIds="+selectIds);
+	}
 });

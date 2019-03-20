@@ -9,27 +9,25 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 
 /**
- * 自定义监听器：生成商品详情的静态页
+ * 自定义监听器 删除商品详情页的静态页
  */
-public class PageListener implements MessageListener{
+public class PageDelListener implements MessageListener {
 
     @Resource
     private StaticPageService staticPageService;
 
-    /**
-     * 获取消息并且消费消息
-     * @param message
-     */
+    //获取消息 并且消费消息
     @Override
     public void onMessage(Message message) {
-
         try {
-            // 取出消息
-            ActiveMQTextMessage activeMQTextMessage = (ActiveMQTextMessage) message;
+            //取出消息
+            ActiveMQTextMessage activeMQTextMessage= (ActiveMQTextMessage) message;
+
             String id = activeMQTextMessage.getText();
-            // 消费消息
-            System.out.println("service-pagecrea获取的id："+id);
-            staticPageService.getHtml(Long.parseLong(id));
+            //消费消息
+            System.out.println("service-pagedel获取的id:"+id);
+
+            staticPageService.delHtml(Long.parseLong(id));
         } catch (JMSException e) {
             e.printStackTrace();
         }

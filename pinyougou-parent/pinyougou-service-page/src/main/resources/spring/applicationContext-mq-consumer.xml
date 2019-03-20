@@ -20,7 +20,7 @@
     <!--发布订阅模式, 生成页面-->  
 	<bean id="topicPageAndSolrDestination" class="org.apache.activemq.command.ActiveMQTopic">  
 	    <constructor-arg value="pinyougou_topic_page_solr"/>  
-	</bean>    
+	</bean>
 	
 	<!-- 发布订阅模式, 消息监听容器   生成页面 -->
 	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
@@ -29,5 +29,16 @@
 		<property name="messageListener" ref="pageListener" />
 	</bean>
 	<bean id="pageListener" class="cn.itcast.core.listener.PageListener"></bean>
-	
+	<!--发布订阅模式 删除商品静态页-->
+	<bean id="topicPageDeleteDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg value="pinyougou_queue_page_delete"/>
+	</bean>
+
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory"/>
+		<property name="destination" ref="topicPageDeleteDestination"/>
+		<property name="messageListener" ref="pageDelListener"/>
+	</bean>
+
+	<bean id="pageDelListener" class="cn.itcast.core.listener.PageDelListener"></bean>
 </beans>
