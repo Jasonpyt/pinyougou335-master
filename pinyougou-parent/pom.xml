@@ -23,6 +23,10 @@
         <module>pinyougou-web-shop</module>
         <module>pinyougou-web-manager</module>
         <module>pinyougou-service-user</module>
+        <module>pinyougouseckill-interface</module>
+        <module>pinyougouseckillservice</module>
+        <module>pinyougouseckillweb</module>
+        <module>pinyougou-pay-interface</module>
 
     </modules>
 

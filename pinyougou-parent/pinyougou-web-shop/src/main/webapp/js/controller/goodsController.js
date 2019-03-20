@@ -25,9 +25,7 @@ app.controller('goodsController' ,function($scope,$controller,$location,typeTemp
 	//查询实体 
 	$scope.findOne=function(){	
 		var id = $location.search()['id'];
-		if(null == id){
-			return;
-		}
+		// alert(id);
 		goodsService.findOne(id).success(
 			function(response){
 				$scope.entity= response;	
@@ -153,12 +151,14 @@ app.controller('goodsController' ,function($scope,$controller,$location,typeTemp
 			$scope.itemCat2List = response;
 		});
 	});
+	
 	// 查询三级分类列表:
 	$scope.$watch("entity.goods.category2Id",function(newValue,oldValue){
 		itemCatService.findByParentId(newValue).success(function(response){
 			$scope.itemCat3List = response;
 		});
 	});
+	
 	// 查询模块ID
 	$scope.$watch("entity.goods.category3Id",function(newValue,oldValue){
 		itemCatService.findOne(newValue).success(function(response){
@@ -242,7 +242,8 @@ app.controller('goodsController' ,function($scope,$controller,$location,typeTemp
 	}
 	
 	// 显示状态
-	$scope.status = ["未审核","审核通过","审核未通过","关闭"];
+	//$scope.status = ["未审核","审核通过","审核未通过","关闭"];
+    $scope.status=['未申请','申请中','审核通过','已驳回'];
 	
 	$scope.itemCatList = [];
 	// 显示分类:
@@ -253,4 +254,19 @@ app.controller('goodsController' ,function($scope,$controller,$location,typeTemp
 			}
 		});
 	}
+
+    //$scope.auditStatusList=['未申请','申请中','审核通过','已驳回'];
+    //添加提交审核功能,修改状态为auditStatus=1
+    $scope.submitAudit=function () {
+        goodsService.updateStatus( $scope.selectIds, "1").success(function (response) {
+        	console.log($scope.selectIds);
+            $scope.selectIds = [];
+            if(response.success) {
+                $scope.reloadList();
+            }else {
+                alert(response.message);
+            }
+        });
+    }
+
 });	

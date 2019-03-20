@@ -31,7 +31,7 @@ public interface BrandService {
      * @param brand
      * @return
      */
-    public PageResult search(Integer pageNo,Integer pageSize,Brand brand);
+    public PageResult search(Integer pageNo, Integer pageSize, Brand brand);
 
     public void add(Brand brand);
 
