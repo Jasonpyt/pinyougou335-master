@@ -232,7 +232,7 @@ public class GoodsServiceImpl implements GoodsService {
      * 商品审核
      *
      * @param ids    多选的商品的id
-     * @param  状态码
+     * @param
      */
     @Transactional
     @Override

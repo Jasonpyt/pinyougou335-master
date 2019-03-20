@@ -27,6 +27,10 @@ app.service("brandService",function($http){
 	this.search = function(page,rows,searchEntity){
 		return $http.post("../brand/search.do?pageNo="+page+"&pageSize="+rows,searchEntity);
 	}
+
+    this.downLoad = function(page,rows,searchEntity){
+        return $http.post("../brand/downLoad.do?pageNo="+page+"&pageSize="+rows,searchEntity);
+    }
 	
 	this.selectOptionList = function(){
 		return $http.get("../brand/selectOptionList.do");

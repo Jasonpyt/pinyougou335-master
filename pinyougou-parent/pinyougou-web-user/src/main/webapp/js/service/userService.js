@@ -1,6 +1,7 @@
 //服务层
 app.service('userService',function($http){
-	    	
+
+
 	//读取列表数据绑定到表单中
 	this.findAll=function(){
 		return $http.get('../user/findAll.do');		
@@ -33,5 +34,15 @@ app.service('userService',function($http){
 	this.sendCode=function(phone){
 		return $http.get('../user/sendCode.do?phone='+phone);
 	}
+
+
+
+
+
+
+
+
+
+
 	
 });

@@ -45,8 +45,25 @@ public class UserController {
             e.printStackTrace();
             return new Result(false,"注册失败");
         }
+    }
+    @RequestMapping("/update.do")
+    public Result update(User user){
+        //
+        try {
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+            userService.update(username,user);
+            return new Result(true,"更新成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"更新失败");
+        }
 
     }
 
+    @RequestMapping("/findOne.do")
+    public User findOne(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userService.findOne(username);
+    }
 
 }

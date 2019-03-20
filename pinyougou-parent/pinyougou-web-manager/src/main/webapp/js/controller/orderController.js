@@ -29,4 +29,13 @@ app.controller('orderController' ,function($scope,$controller,orderService) {
 
 
 
+  /*  $scope.searchCount = function(page,rows){
+        // 向后台发送请求获取数据:
+        orderService.searchCount(page,rows).success(function(response){
+            $scope.paginationConf.totalItems = response.total;
+            $scope.list = response.rows;
+        });
+    }
+*/
+
 });

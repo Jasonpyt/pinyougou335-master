@@ -1,12 +1,10 @@
 package cn.itcast.core.dao.address;
 
-;
 import cn.itcast.core.pojo.address.Address;
 import cn.itcast.core.pojo.address.AddressQuery;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
-
 
 public interface AddressDao {
     int countByExample(AddressQuery example);

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../css/style.css">
 	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
     <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/FileSaver.js/2014-11-29/FileSaver.js"></script>
 
     <!-- 引入angular的js -->
     <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
@@ -25,6 +26,34 @@
 </head>
 <body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController">
   <!-- .box-body -->
+
+
+ <!-- <script type="text/javascript">
+      $scope.ExportPostSensitiveWordsList = function () {
+          var url =  "http://localhost:9101/post/export/Export.do";
+          $http({
+              url: url,
+              method: "POST",
+              data: $scope.queryByRequire, //需要带的参数
+              headers: {
+                  'Content-type': 'application/json'//发送内容的类型，这是使用'application/json'
+              },
+              responseType: 'arraybuffer'//返回结果的类型，字节流
+          }).success(function (data, status, headers, config) {
+              var blob = new Blob([data], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});//以二进制形式存储，并转化为Excel
+              var objectUrl = URL.createObjectURL(blob);
+              var now=new Date();
+              var fileName=now.toLocaleDateString() +'            '+now.getHours()+'/'+now.getMinutes()+'/'+now.getSeconds()+"xxx"+ ".xls";//自定义导出excel表名字，这里使用日期
+              saveAs(blob, fileName);//这里使用了文件导出插件FileSaver.js
+          }).error(function (data, status, headers, config) {
+              Alert.error("导出失败！");
+          });
+      };
+
+  </script>-->
+
+
+
                     <div class="box-header with-border">
                         <h3 class="box-title">品牌管理</h3>
                     </div>
@@ -41,6 +70,7 @@
                                         <button type="button" class="btn btn-default" title="新建" data-toggle="modal" data-target="#editModal" ng-click="entity={}"><i class="fa fa-file-o"></i> 新建</button>
                                         <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i class="fa fa-trash-o"></i> 删除</button>           
                                         <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
+                                        <button type="button" class="btn btn-default" title="下载" ng-click="ExportPostSensitiveWordsList()"><i class="fa fa-refresh"></i> 下载</button>
                                     </div>
                                 </div>
                             </div>
@@ -71,7 +101,7 @@
 									      <td>{{entity.name}}</td>									     
 		                                  <td>{{entity.firstChar}}</td>		                                 
 		                                  <td class="text-center">                                           
-		                                 	  <button type="button" class="btn bg-olive btn-xs" ng-click="findById(entity.id)" data-toggle="modal" data-target="#editModal"  >修改</button>                                           
+		                                 	  <button type="button" class="btn bg-olive btn-xs" ng-click="findById(entity.id)"  >修改</button>
 		                                  </td>
 			                          </tr>
 									  
@@ -117,4 +147,5 @@
 </div>
    
 </body>
+
 </html>
