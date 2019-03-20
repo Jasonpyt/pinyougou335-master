@@ -1,5 +1,7 @@
 //购物车控制层
-app.controller('cartController',function($scope,cartService){
+app.controller('cartController',function($scope,$controller,cartService){
+    // AngularJS中的继承:伪继承
+    // $controller('baseController',{$scope:$scope});
 	//查询购物车列表
 	$scope.findCartList=function(){
 		cartService.findCartList().success(
@@ -86,5 +88,31 @@ app.controller('cartController',function($scope,cartService){
 			}				
 		);		
 	}
-	
+
+	//单个商品的收藏
+	$scope.addCollect=function(itemId){
+		location.href="collect.html";
+		cartService.addCollect(itemId).success(
+			function(response){
+				if(response.flag){
+                    alert(response.message);
+				}else{
+					alert(response.message);
+				}
+			}
+		);
+	}
+
+    // 商品的批量收藏
+    $scope.addCollects = function() {
+        location.href="collect.html";
+        cartService.addCollects($scope.selectIds).success(function (response) {
+                // 判断收藏是否成功:
+            if(response.flag){
+                alert(response.message);
+            }else{
+                alert(response.message);
+            }
+            });
+    }
 });

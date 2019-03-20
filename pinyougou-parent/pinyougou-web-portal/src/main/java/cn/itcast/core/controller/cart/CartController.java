@@ -18,6 +18,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -169,5 +170,61 @@ public class CartController {
             }
 
         return cartList;
+    }
+
+    /**
+     * 单个订单项的收藏
+     * @param itemId
+     * @return
+     */
+    @RequestMapping("/addCollect.do")
+    public Result addCollect(Long itemId,HttpServletResponse response){
+        try {
+            //获取登录用户的名字
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            boolean b = cartService.checkCollect(itemId, username);
+
+            if(b) {
+                 cartService.addCollect(itemId, username);
+             }else {
+                return new Result(false,"此商品已经收藏");
+            }
+
+            return new Result(true,"收藏成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return new Result(false,"收藏失败");
+        }
+    }
+
+    /**
+     * 订单项的批量收藏
+     * @param selectIds
+     * @return
+     */
+    @RequestMapping("/addCollects.do")
+    public Result addCollects(Long[] selectIds,HttpServletResponse response){
+        try {
+            //获取登录用户的名字
+            String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+            for (Long selectId : selectIds) {
+                boolean b = cartService.checkCollect(selectId, username);
+
+                if(b){
+                    cartService.addCollect(selectId,username);
+                }else {
+                    return new Result(false,"此商品已经收藏");
+                }
+            }
+
+            return new Result(true,"收藏成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            return new Result(false,"收藏失败");
+        }
     }
 }
