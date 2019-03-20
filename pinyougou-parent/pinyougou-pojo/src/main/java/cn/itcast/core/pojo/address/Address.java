@@ -61,6 +61,11 @@ public class Address implements Serializable {
      */
     private String alias;
 
+    /**
+     * 邮箱
+     */
+    private String email;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -159,6 +164,14 @@ public class Address implements Serializable {
         this.alias = alias == null ? null : alias.trim();
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -177,6 +190,7 @@ public class Address implements Serializable {
         sb.append(", notes=").append(notes);
         sb.append(", createDate=").append(createDate);
         sb.append(", alias=").append(alias);
+        sb.append(", email=").append(email);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -205,7 +219,8 @@ public class Address implements Serializable {
             && (this.getIsDefault() == null ? other.getIsDefault() == null : this.getIsDefault().equals(other.getIsDefault()))
             && (this.getNotes() == null ? other.getNotes() == null : this.getNotes().equals(other.getNotes()))
             && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
-            && (this.getAlias() == null ? other.getAlias() == null : this.getAlias().equals(other.getAlias()));
+            && (this.getAlias() == null ? other.getAlias() == null : this.getAlias().equals(other.getAlias()))
+            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()));
     }
 
     @Override
@@ -224,6 +239,7 @@ public class Address implements Serializable {
         result = prime * result + ((getNotes() == null) ? 0 : getNotes().hashCode());
         result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
         result = prime * result + ((getAlias() == null) ? 0 : getAlias().hashCode());
+        result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
         return result;
     }
 }

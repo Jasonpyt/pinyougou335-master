@@ -54,6 +54,7 @@ public class BrandServiceImpl implements BrandService {
         }
         if (brand.getFirstChar()!=null&&!"".equals(brand.getFirstChar().trim())){
             criteria.andFirstCharEqualTo(brand.getFirstChar());
+
         }
         // 根据id排序
         brandQuery.setOrderByClause("id desc");
