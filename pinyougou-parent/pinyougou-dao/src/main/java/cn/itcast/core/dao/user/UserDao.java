@@ -28,4 +28,7 @@ public interface UserDao {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    //根据用户名查询收藏的库存id
+    List<Long> selectItemId(String seller_id);
 }

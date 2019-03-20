@@ -28,4 +28,9 @@ public interface OrderItemDao {
     int updateByPrimaryKeySelective(OrderItem record);
 
     int updateByPrimaryKey(OrderItem record);
+
+    //单个订单项的收藏
+    void updateIsCollectByItemId(String username,Long itemId);
+    //查看商品是否被收藏
+    long checkCollect(Long itemId, String username);
 }

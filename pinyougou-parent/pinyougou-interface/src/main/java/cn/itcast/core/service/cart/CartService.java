@@ -36,4 +36,13 @@ public interface CartService {
      * @return
      */
     List<Cart> findCartListFromRedis(String username);
+
+    /**
+     * 单个商品的收藏
+     * @param itemId
+     */
+    void addCollect(Long itemId, String username);
+
+    //查看商品是否被添加
+    boolean checkCollect(Long itemId, String username);
 }

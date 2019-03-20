@@ -92,6 +92,18 @@ public class StaticPageServiceImpl  implements StaticPageService,ServletContextA
         }
     }
 
+    @Override
+    public void delHtml(Long id) {
+        //指定file:生成静态页的位置 可以直接访问  发布到项目的真实路径下
+        String pathName="/"+id+".html";
+
+        String path=servletContext.getRealPath(pathName);
+        //用静态页的真实路径生成file对象
+        File file = new File(path);
+
+        file.delete();
+    }
+
     private Map<String,Object> getDataModel(Long id) {
         HashMap<String, Object> map = new HashMap<>();
         //商品副标题
